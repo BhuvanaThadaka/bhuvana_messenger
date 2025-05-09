@@ -1,0 +1,26 @@
+image: node:20.11.0
+
+pipelines:
+  branches:
+    develop:
+      - step:
+          size: 2x
+          script:
+            - npm install
+            - npm run build
+            - pipe: atlassian/rsync-deploy:0.12.0
+              variables:
+                USER: "ubuntu"
+                SERVER: "$EC2_HOST"
+                SSH_KEY: "$SSH_PRIVATE_KEY"
+                DEBUG: 'true'
+                SSH_PORT: '22'
+                REMOTE_PATH: /home/ubuntu/vakeelpro-webapp
+                LOCAL_PATH: dist/
+            - pipe: atlassian/ssh-run:0.8.0
+              variables:
+                SSH_USER: "ubuntu"
+                SERVER: "$EC2_HOST"
+                SSH_KEY: $SSH_PRIVATE_KEY
+                PORT: '22'
+                COMMAND: '/home/ubuntu/start-webapp.sh'
