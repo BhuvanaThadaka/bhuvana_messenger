@@ -150,4 +150,11 @@ export const navItems: NavItem[] = [
     icon: Settings,
     module: Modules.Settings,
   },
+
+  {
+    href: "/messenger",
+    label: "Messenger",
+    icon: UserCircle,
+    module: Modules.Messenger,
+  },
 ];

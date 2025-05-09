@@ -18,7 +18,8 @@ export enum Modules {
   InvoiceManagement = "InvoiceManagement",
   UserProfile = "UserProfile",
   Settings = "Settings",
-  AccessManagement = "AccessManagement"
+  AccessManagement = "AccessManagement",
+   Messenger = "Messenger"
 }
 
 export interface User {

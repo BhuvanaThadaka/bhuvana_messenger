@@ -99,6 +99,33 @@ export const mockLogout = async () => {
   // In a real implementation, you might invalidate the token on the server
   return { success: true, message: 'Logged out successfully' };
 };
+const API_URL = '/api';
+export const fetchWithAuth = async (endpoint: string, options: RequestInit = {}) => {
+  const headers = {
+    'Content-Type': 'application/json',
+    ...options.headers,
+    // Authorization header will be added here when you implement authentication
+    // 'Authorization': `Bearer ${getToken()}`
+  };
+
+  try {
+    const response = await fetch(`${API_URL}${endpoint}`, {
+      ...options,
+      headers,
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || 'An error occurred');
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('API request failed:', error);
+    throw error;
+  }
+};
+
 
 export default {
   mockLogin,
